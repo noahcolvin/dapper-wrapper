@@ -59,9 +59,6 @@
     <Compile Include="TransactionScopeWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="DapperWrapper.nuspec">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
