@@ -1,10 +1,10 @@
-DapperWrapper is a library that wraps the [Dapper](http://code.google.com/p/dapper-dot-net/) extension methods on `IDbConnection` to make unit testing easier.
+DapperWrapper is a library that wraps the [Dapper](https://github.com/StackExchange/dapper-dot-net) extension methods on `IDbConnection` to make unit testing easier.
 
-Why bother? Because stubbing the extension methods used in a method-under-unit-test is a pain in the ass. For instance, you can't just use a library like [Moq](http://code.google.com/p/moq/) to stub the `.Query` extension method on a fake `IDbConnection`. To work around this, I introduce a new abstraction, `IDbExecutor`.
+Why bother? Because stubbing the extension methods used in a method-under-unit-test is not simple. For instance, you can't just use a library like [Moq](https://github.com/moq/moq4) or [NSubstitute](http://nsubstitute.github.io/) to stub the `.Query` extension method on a fake `IDbConnection`. To work around this, this library introduces a new abstraction, `IDbExecutor`.
 
 ## The `IDbExecutor` Interface
 
-The `IDbExectuor` interface has three methods, each corresponding to a Dapper extension method: `Execute`, `Query`, and `Query<T>`. Wherever you would previously inject an `IDbConnection` to use with Dapper, you instead inject an `IDbExecutor`. There is a single implementation of `IDbExecutor` included in DapperWrapper, `SqlExecutor`, that uses the Dapper extension methods against `SqlConnection`. Adding your own `IDbExecutor` against other implementations of `IDbConnection` is easy.
+The `IDbExectuor` interface has many methods, each corresponding to a Dapper extension method: `Execute`, `Query`, `Query<T>`, `QueryMultiple`, `QueryMultiple<T>`, etc.. Wherever you would previously inject an `IDbConnection` to use with Dapper, you instead inject an `IDbExecutor`. There is a single implementation of `IDbExecutor` included in DapperWrapper, `SqlExecutor`, that uses the Dapper extension methods against `SqlConnection`. Adding your own `IDbExecutor` against other implementations of `IDbConnection` is easy.
 
 Example use of `IDbExecutor`:
 
@@ -45,4 +45,7 @@ public class DependenciesRegistrar : NinjectModule {
 
 ## Transactions
 
-I sometimes need to assert whether a method-under-unit-test completes a transaction via `TransactionScope`. To make this easier, DapperWrapper also has an `ITransactionScope` interface (and `TransactionScopeWrapper` implementation) that makes it easy to create a fake transaction, and stub (and assert on) the `Complete` method. As with `IDbExecutor`, you can bind it directly, via `Func<ITransactionScope>`.
+Sometimes there is a need to assert whether a method-under-unit-test completes a transaction via `TransactionScope`. To make this easier, DapperWrapper also has an `ITransactionScope` interface (and `TransactionScopeWrapper` implementation) that makes it easy to create a fake transaction, and stub (and assert on) the `Complete` method. As with `IDbExecutor`, you can bind it directly, via `Func<ITransactionScope>`.
+
+## Additional
+There are also times when the data coming from the database is not trimmed and so DapperWrapper includes `QueryAndTrimResults<T>` for this purpose.

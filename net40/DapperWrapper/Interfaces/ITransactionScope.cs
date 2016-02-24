@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DapperWrapper
+namespace DapperWrapper.Interfaces
 {
     public interface ITransactionScope : IDisposable
     {

@@ -5,13 +5,13 @@
     <version>$version$</version>
     <authors>$author$</authors>
     <owners>$author$</owners>
-    <licenseUrl>https://github.com/half-ogre/dapper-wrapper/blob/master/LICENSE.txt</licenseUrl>
-    <projectUrl>https://github.com/half-ogre/dapper-wrapper</projectUrl>
+    <licenseUrl>https://github.com/Tazmainiandevil/dapper-wrapper/blob/master/LICENSE.txt</licenseUrl>
+    <projectUrl>https://github.com/Tazmainiandevil/dapper-wrapper</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <tags>anglicangeek anglican geek halfogre half-ogre half ogre dapper wrapper dapperwrapper</tags>
+    <tags>anglicangeek anglican geek halfogre half-ogre half ogre tazmainiandevil dapper wrapper dapperwrapper</tags>
     <dependencies>
-      <dependency id="Dapper" version="1.8" />
+      <dependency id="Dapper" version="1.42" />
     </dependencies>
   </metadata>
 </package>

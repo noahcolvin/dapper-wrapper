@@ -5,3 +5,5 @@ obj
 DapperWrapper*.nupkg
 _ReSharper*
 packages
+/.vs/config
+*.DotSettings

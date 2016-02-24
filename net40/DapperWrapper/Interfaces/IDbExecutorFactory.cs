@@ -1,5 +1,4 @@
-﻿
-namespace DapperWrapper
+﻿namespace DapperWrapper.Interfaces
 {
     public interface IDbExecutorFactory
     {
