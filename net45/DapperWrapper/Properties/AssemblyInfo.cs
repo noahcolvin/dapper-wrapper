@@ -5,11 +5,10 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("DapperWrapper")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyDescription("A simple abstraction atop the Dapper extension methods for testability.")]
+[assembly: AssemblyCompany("Andrew Miller")]
 [assembly: AssemblyProduct("DapperWrapper")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
+[assembly: AssemblyCopyright("Copyright © 2011-2016 Andrew Miller, Mark Johnson")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

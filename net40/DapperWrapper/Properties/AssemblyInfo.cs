@@ -1,10 +1,11 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyCompany("Andrew Miller")]
-[assembly: AssemblyProduct("DapperWrapper")]
-[assembly: AssemblyCopyright("Copyright (c) 2011-2012 Andrew Miller")]
 [assembly: AssemblyTitle("DapperWrapper")]
 [assembly: AssemblyDescription("A simple abstraction atop the Dapper extension methods for testability.")]
+[assembly: AssemblyCompany("Andrew Miller")]
+[assembly: AssemblyProduct("DapperWrapper")]
+[assembly: AssemblyCopyright("Copyright © 2011-2016 Andrew Miller, Mark Johnson")]
 [assembly: ComVisible(false)]
-[assembly: AssemblyVersion("0.3.0.0")]
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]
