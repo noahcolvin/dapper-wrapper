@@ -4,7 +4,7 @@
     <id>$id$</id>
     <version>$version$</version>
     <authors>$author$</authors>
-    <owners>$author$</owners>
+    <owners>$owners$</owners>
     <licenseUrl>https://github.com/Tazmainiandevil/dapper-wrapper/blob/master/LICENSE.txt</licenseUrl>
     <projectUrl>https://github.com/Tazmainiandevil/dapper-wrapper</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -14,4 +14,8 @@
       <dependency id="Dapper" version="1.42" />
     </dependencies>
   </metadata>
+  <files>
+    <file src="net40\DapperWrapper\bin\Release\DapperWrapper.dll" target="lib\net40\DapperWrapper.dll" />
+    <file src="net45\DapperWrapper\bin\Release\DapperWrapper.dll" target="lib\net45\DapperWrapper.dll" />
+  </files>
 </package>
