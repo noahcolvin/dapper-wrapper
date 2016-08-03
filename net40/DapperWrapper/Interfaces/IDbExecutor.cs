@@ -66,6 +66,41 @@ namespace DapperWrapper.Interfaces
             int? commandTimeout = default(int?),
             CommandType? commandType = default(CommandType?));
 
+        int ExecuteProc(
+            string sql,
+            object param = null,
+            IDbTransaction transaction = null,
+            int? commandTimeout = default(int?));
+
+        IEnumerable<dynamic> QueryProc(
+           string sql,
+           object param = null,
+           IDbTransaction transaction = null,
+           bool buffered = true,
+           int? commandTimeout = default(int?));
+
+        IEnumerable<TReturn> QueryProc<TFirst, TSecond, TReturn>(
+            string sql,
+            Func<TFirst, TSecond, TReturn> map,
+            object param = null,
+            IDbTransaction transaction = null,
+            bool buffered = true,
+            string splitOn = "Id",
+            int? commandTimeout = default(int?));
+
+        IEnumerable<T> QueryProc<T>(
+           string sql,
+           object param = null,
+           IDbTransaction transaction = null,
+           bool buffered = true,
+           int? commandTimeout = default(int?));
+
+        IGridReader QueryMultipleProc(
+            string sql,
+            object param = null,
+            IDbTransaction transaction = null,
+            int? commandTimeout = default(int?));
+        
         #endregion Additional Extensions
     }
 }

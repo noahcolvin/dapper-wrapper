@@ -19,6 +19,7 @@ namespace DapperWrapper
         /// The SQL connection object
         /// </summary>
         private readonly SqlConnection _sqlConnection;
+        private readonly int _commandTimeout;
 
         #endregion Members
 
@@ -26,9 +27,11 @@ namespace DapperWrapper
         /// Constructor for the SQL Executor
         /// </summary>
         /// <param name="sqlConnection"></param>
-        public SqlExecutor(SqlConnection sqlConnection)
+        /// <param name="commandTimeout">Default command timeout</param>
+        public SqlExecutor(SqlConnection sqlConnection, int commandTimeout = 30)
         {
             _sqlConnection = sqlConnection;
+            _commandTimeout = commandTimeout;
         }
 
         #region Sync Methods
@@ -44,7 +47,7 @@ namespace DapperWrapper
                 sql,
                 param,
                 transaction,
-                commandTimeout,
+                commandTimeout ?? _commandTimeout,
                 commandType);
         }
 
@@ -61,7 +64,7 @@ namespace DapperWrapper
                 param,
                 transaction,
                 buffered,
-                commandTimeout,
+                commandTimeout ?? _commandTimeout,
                 commandType);
         }
 
@@ -75,7 +78,7 @@ namespace DapperWrapper
             int? commandTimeout = default(int?),
             CommandType? commandType = default(CommandType?))
         {
-            return SqlMapper.Query<TFirst, TSecond, TReturn>(_sqlConnection, sql, map, param, transaction, buffered, splitOn, commandTimeout, commandType);
+            return SqlMapper.Query<TFirst, TSecond, TReturn>(_sqlConnection, sql, map, param, transaction, buffered, splitOn, commandTimeout ?? _commandTimeout, commandType);
         }
 
         public IEnumerable<T> Query<T>(
@@ -90,7 +93,7 @@ namespace DapperWrapper
                 param,
                 transaction,
                 buffered,
-                commandTimeout,
+                commandTimeout ?? _commandTimeout,
                 commandType);
         }
 
@@ -101,7 +104,7 @@ namespace DapperWrapper
             int? commandTimeout = default(int?),
             CommandType? commandType = default(CommandType?))
         {
-            var reader = _sqlConnection.QueryMultiple(sql, param, transaction, commandTimeout, commandType);
+            var reader = _sqlConnection.QueryMultiple(sql, param, transaction, commandTimeout ?? _commandTimeout, commandType);
             return new GridReaderWrapper(reader);
         }
 
@@ -121,7 +124,7 @@ namespace DapperWrapper
             int? commandTimeout = null,
             CommandType? commandType = null)
         {
-            return AdditionalDapper.Query<T>(_sqlConnection, sql, param, transaction, buffered, commandTimeout, commandType);
+            return AdditionalDapper.Query<T>(_sqlConnection, sql, param, transaction, buffered, commandTimeout ?? _commandTimeout, commandType);
         }
 
         /// <summary>
@@ -138,7 +141,35 @@ namespace DapperWrapper
             int? commandTimeout = null,
             CommandType? commandType = null)
         {
-            return AdditionalDapper.Query<TFirst, TSecond, TReturn>(_sqlConnection, sql, map, param, transaction, buffered, splitOn, commandTimeout, commandType);
+            return AdditionalDapper.Query(_sqlConnection, sql, map, param, transaction, buffered, splitOn, commandTimeout ?? _commandTimeout, commandType);
+        }
+
+        public int ExecuteProc(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null)
+        {
+            return Execute(sql, param, transaction, commandTimeout, CommandType.StoredProcedure);
+        }
+
+        public IEnumerable<dynamic> QueryProc(string sql, object param = null, IDbTransaction transaction = null, bool buffered = true,
+            int? commandTimeout = null)
+        {
+            return Query(sql, param, transaction, buffered, commandTimeout, CommandType.StoredProcedure);
+        }
+
+        public IEnumerable<TReturn> QueryProc<TFirst, TSecond, TReturn>(string sql, Func<TFirst, TSecond, TReturn> map, object param = null,
+            IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null)
+        {
+            return Query(sql, map, param, transaction, buffered, splitOn, commandTimeout, CommandType.StoredProcedure);
+        }
+
+        public IEnumerable<T> QueryProc<T>(string sql, object param = null, IDbTransaction transaction = null, bool buffered = true, int? commandTimeout = null)
+        {
+            return Query<T>(sql, param, transaction, buffered, commandTimeout, CommandType.StoredProcedure);
+        }
+
+        public IGridReader QueryMultipleProc(string sql, object param = null, IDbTransaction transaction = null,
+            int? commandTimeout = null)
+        {
+            return QueryMultiple(sql, param, transaction, commandTimeout, CommandType.StoredProcedure);
         }
 
         #endregion Additional Extensions

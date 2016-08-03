@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
-    <id>$id$</id>
-    <version>$version$</version>
-    <authors>$author$</authors>
-    <owners>$owners$</owners>
-    <licenseUrl>https://github.com/Tazmainiandevil/dapper-wrapper/blob/master/LICENSE.txt</licenseUrl>
-    <projectUrl>https://github.com/Tazmainiandevil/dapper-wrapper</projectUrl>
+    <id>Dapper.ExtraAnnotations</id>
+    <version>1.0.1</version>
+    <authors>Noah Colvin</authors>
+    <owners>Noah Colvin</owners>
+    <licenseUrl>https://github.com/noahcolvin/dapper-wrapper/blob/master/LICENSE.txt</licenseUrl>
+    <projectUrl>https://github.com/noahcolvin/dapper-wrapper</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>$description$</description>
+    <description>A simple abstraction atop the Dapper extension methods for testability.</description>
     <tags>anglicangeek anglican geek halfogre half-ogre half ogre tazmainiandevil dapper wrapper dapperwrapper</tags>
     <dependencies>
       <dependency id="Dapper" version="1.42" />

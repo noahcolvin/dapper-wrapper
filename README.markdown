@@ -6,6 +6,8 @@ Why bother? Because stubbing the extension methods used in a method-under-unit-t
 
 The `IDbExectuor` interface has many methods, each corresponding to a Dapper extension method: `Execute`, `Query`, `Query<T>`, `QueryMultiple`, `QueryMultiple<T>`, etc.. Wherever you would previously inject an `IDbConnection` to use with Dapper, you instead inject an `IDbExecutor`. There is a single implementation of `IDbExecutor` included in DapperWrapper, `SqlExecutor`, that uses the Dapper extension methods against `SqlConnection`. Adding your own `IDbExecutor` against other implementations of `IDbConnection` is easy.
 
+This version allows specifying a command timeout when creating the SqlExecutor to use in each command if a different value is not specified. Each of the extension methods above also include one ending in `Proc` which will automatically assume the command is of type `CommandType.StoredProcedure`.
+
 Example use of `IDbExecutor`:
 
 ```

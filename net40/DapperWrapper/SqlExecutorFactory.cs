@@ -9,6 +9,7 @@ namespace DapperWrapper
         #region Members
 
         private readonly string _connectionString;
+        private readonly int _commandTimeout;
 
         #endregion Members
 
@@ -16,15 +17,17 @@ namespace DapperWrapper
         /// Constructor
         /// </summary>
         /// <param name="connectionString">The connection for the required database</param>
+        /// <param name="commandTimeout">The default timeout to use for a connection</param>
         /// <exception cref="ArgumentNullException"></exception>
-        public SqlExecutorFactory(string connectionString)
+        public SqlExecutorFactory(string connectionString, int commandTimeout = 30)
         {
             if (string.IsNullOrWhiteSpace(connectionString))
             {
-                throw new ArgumentNullException("connectionString");
+                throw new ArgumentNullException(nameof(connectionString));
             }
 
             _connectionString = connectionString;
+            _commandTimeout = commandTimeout;
         }
 
         /// <summary>
@@ -36,7 +39,7 @@ namespace DapperWrapper
             var dbConnection = new SqlConnection(_connectionString);
             dbConnection.Open();
 
-            return new SqlExecutor(dbConnection);
+            return new SqlExecutor(dbConnection, _commandTimeout);
         }
     }
 }
