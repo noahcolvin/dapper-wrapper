@@ -15,7 +15,7 @@ public IEnumerable<SemanticVersion> GetAllPackageVersions(
   string packageId,
   IDbExecutor dbExecutor) {
   return dbExecutor.Query<string>("SELECT p.version FROM packages p WHERE p.id = @packageId", new { packageId })
-    .Select(version => new SemanticVersion(version));
+	.Select(version => new SemanticVersion(version));
 }
 ``` 
 
@@ -30,16 +30,16 @@ Example of binding `IDbExecutor` and `IDbExecutorFactory` using Ninject:
 ```
 public class DependenciesRegistrar : NinjectModule {
   public override void Load() {
-    Bind<IDbExecutor>()
-      .ToMethod(context => {
-	    var sqlConnection = new SqlConnection(connectionString);
+	Bind<IDbExecutor>()
+	  .ToMethod(context => {
+		var sqlConnection = new SqlConnection(connectionString);
 		sqlConnection.Open();
 		return new SqlExecutor(sqlConnection);
-      });
+	  });
 	Bind<IDbExecutorFactory>()
-      .ToMethod(context => {
-	    return new SqlExecutorFactory(connectionString);
-      })
+	  .ToMethod(context => {
+		return new SqlExecutorFactory(connectionString);
+	  })
 	  .InSingletonScope();
   }
 }
@@ -51,3 +51,10 @@ Sometimes there is a need to assert whether a method-under-unit-test completes a
 
 ## Additional
 There are also times when the data coming from the database is not trimmed and so DapperWrapper includes `QueryAndTrimResults<T>` for this purpose.
+
+## Versions
+### 1.1.0
+Added wrapper methods for [Dapper.SimpleCRUD](https://github.com/ericdc1/Dapper.SimpleCRUD) to enhance testability and to use the same pattern as other `Dapper` methods. If you do not need `Dapper.SimpleCRUD` support you can stick with version 1.0.1; that code has not been modified.
+
+### 1.0.1
+Included `Proc` methods to assume `CommandType.StoredProcedure` and defaulting the `CommandTimeout`.

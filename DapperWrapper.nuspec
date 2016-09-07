@@ -2,16 +2,17 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>Dapper.ExtraAnnotations</id>
-    <version>1.0.1</version>
+    <version>1.1.0</version>
     <authors>Noah Colvin</authors>
     <owners>Noah Colvin</owners>
     <licenseUrl>https://github.com/noahcolvin/dapper-wrapper/blob/master/LICENSE.txt</licenseUrl>
     <projectUrl>https://github.com/noahcolvin/dapper-wrapper</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>A simple abstraction atop the Dapper extension methods for testability.</description>
-    <tags>anglicangeek anglican geek halfogre half-ogre half ogre tazmainiandevil dapper wrapper dapperwrapper</tags>
+    <description>A simple abstraction atop the Dapper and Dapper.SimpleCRUD extension methods for testability.</description>
+    <tags>anglicangeek anglican geek halfogre half-ogre half ogre tazmainiandevil dapper wrapper dapperwrapper SimpleCRUD CRUD</tags>
     <dependencies>
-      <dependency id="Dapper" version="1.42" />
+      <dependency id="Dapper" version="1.50.2" />
+      <dependency id="Dapper.SimpleCRUD" version="1.12.0" />
     </dependencies>
   </metadata>
   <files>

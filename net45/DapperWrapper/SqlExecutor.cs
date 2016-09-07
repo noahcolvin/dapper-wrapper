@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace DapperWrapper
@@ -79,7 +80,7 @@ namespace DapperWrapper
             int? commandTimeout = default(int?),
             CommandType? commandType = default(CommandType?))
         {
-            return SqlMapper.Query<TFirst, TSecond, TReturn>(_sqlConnection, sql, map, param, transaction, buffered, splitOn, commandTimeout ?? _commandTimeout, commandType);
+            return SqlMapper.Query(_sqlConnection, sql, map, param, transaction, buffered, splitOn, commandTimeout ?? _commandTimeout, commandType);
         }
 
         public IEnumerable<T> Query<T>(
@@ -219,6 +220,175 @@ namespace DapperWrapper
         }
 
         #endregion Async Methods
+
+        #region SimpleCRUD Extensions
+
+        public string GetDialect()
+        {
+            return SimpleCRUD.GetDialect();
+        }
+
+        public void SetDialect(SimpleCRUD.Dialect dialect)
+        {
+            SimpleCRUD.SetDialect(dialect);
+        }
+
+        public void SetTableNameResolver(SimpleCRUD.ITableNameResolver resolver)
+        {
+            SimpleCRUD.SetTableNameResolver(resolver);
+        }
+
+        public void SetColumnNameResolver(SimpleCRUD.IColumnNameResolver resolver)
+        {
+            SimpleCRUD.SetColumnNameResolver(resolver);
+        }
+
+        public T Get<T>(object id, IDbTransaction transaction = null, int? commandTimeout = null)
+        {
+            return _sqlConnection.Get<T>(id, transaction, commandTimeout ?? _commandTimeout);
+        }
+
+        public IEnumerable<T> GetList<T>(object whereConditions, IDbTransaction transaction = null, int? commandTimeout = null)
+        {
+            return _sqlConnection.GetList<T>(whereConditions, transaction, commandTimeout ?? _commandTimeout);
+        }
+
+        public IEnumerable<T> GetList<T>(string conditions, IDbTransaction transaction = null, int? commandTimeout = null)
+        {
+            return _sqlConnection.GetList<T>(conditions, transaction, commandTimeout ?? _commandTimeout);
+        }
+
+        public IEnumerable<T> GetList<T>()
+        {
+            return _sqlConnection.GetList<T>();
+        }
+
+        public IEnumerable<T> GetListPaged<T>(int pageNumber, int rowsPerPage, string conditions, string @orderby, IDbTransaction transaction = null, int? commandTimeout = null)
+        {
+            return _sqlConnection.GetListPaged<T>(pageNumber, rowsPerPage, conditions, @orderby, transaction, commandTimeout ?? _commandTimeout);
+        }
+
+        public int? Insert(object entityToInsert, IDbTransaction transaction = null, int? commandTimeout = null)
+        {
+            return _sqlConnection.Insert(entityToInsert, transaction, commandTimeout ?? _commandTimeout);
+        }
+
+        public TKey Insert<TKey>(object entityToInsert, IDbTransaction transaction = null, int? commandTimeout = null)
+        {
+            return _sqlConnection.Insert<TKey>(entityToInsert, transaction, commandTimeout ?? _commandTimeout);
+        }
+
+        public int Update(object entityToUpdate, IDbTransaction transaction = null, int? commandTimeout = null)
+        {
+            return _sqlConnection.Update(entityToUpdate, transaction, commandTimeout ?? _commandTimeout);
+        }
+
+        public int Delete<T>(T entityToDelete, IDbTransaction transaction = null, int? commandTimeout = null)
+        {
+            return _sqlConnection.Delete(entityToDelete, transaction, commandTimeout ?? _commandTimeout);
+        }
+
+        public int Delete<T>(object id, IDbTransaction transaction = null, int? commandTimeout = null)
+        {
+            return _sqlConnection.Delete<T>(id, transaction, commandTimeout ?? _commandTimeout);
+        }
+
+        public int DeleteList<T>(object whereConditions, IDbTransaction transaction = null, int? commandTimeout = null)
+        {
+            return _sqlConnection.DeleteList<T>(whereConditions, transaction, commandTimeout ?? _commandTimeout);
+        }
+
+        public int DeleteList<T>(string conditions, IDbTransaction transaction = null, int? commandTimeout = null)
+        {
+            return _sqlConnection.DeleteList<T>(conditions, transaction, commandTimeout ?? _commandTimeout);
+        }
+
+        public int RecordCount<T>(string conditions = "", IDbTransaction transaction = null, int? commandTimeout = null)
+        {
+            return _sqlConnection.RecordCount<T>(conditions, transaction, commandTimeout ?? _commandTimeout);
+        }
+
+        public int RecordCount<T>(object whereConditions, IDbTransaction transaction = null, int? commandTimeout = null)
+        {
+            return _sqlConnection.RecordCount<T>(whereConditions, transaction, commandTimeout ?? _commandTimeout);
+        }
+
+        public Guid SequentialGuid()
+        {
+            return SimpleCRUD.SequentialGuid();
+        }
+
+        public Task<T> GetAsync<T>(object id, IDbTransaction transaction = null, int? commandTimeout = null)
+        {
+            return _sqlConnection.GetAsync<T>(id, transaction, commandTimeout ?? _commandTimeout);
+        }
+
+        public Task<IEnumerable<T>> GetListAsync<T>(object whereConditions, IDbTransaction transaction = null, int? commandTimeout = null)
+        {
+            return _sqlConnection.GetListAsync<T>(whereConditions, transaction, commandTimeout ?? _commandTimeout);
+        }
+
+        public Task<IEnumerable<T>> GetListAsync<T>(string conditions, IDbTransaction transaction = null, int? commandTimeout = null)
+        {
+            return _sqlConnection.GetListAsync<T>(conditions, transaction, commandTimeout ?? _commandTimeout);
+        }
+
+        public Task<IEnumerable<T>> GetListAsync<T>()
+        {
+            return _sqlConnection.GetListAsync<T>();
+        }
+
+        public Task<IEnumerable<T>> GetListPagedAsync<T>(int pageNumber, int rowsPerPage, string conditions, string @orderby)
+        {
+            return _sqlConnection.GetListPagedAsync<T>(pageNumber, rowsPerPage, conditions, @orderby);
+        }
+
+        public Task<int?> InsertAsync(object entityToInsert, IDbTransaction transaction = null, int? commandTimeout = null)
+        {
+            return _sqlConnection.InsertAsync(entityToInsert, transaction, commandTimeout ?? _commandTimeout);
+        }
+
+        public Task<TKey> InsertAsync<TKey>(object entityToInsert, IDbTransaction transaction = null, int? commandTimeout = null)
+        {
+            return _sqlConnection.InsertAsync<TKey>(entityToInsert, transaction, commandTimeout ?? _commandTimeout);
+        }
+
+        public Task<int> UpdateAsync(object entityToUpdate, IDbTransaction transaction = null, int? commandTimeout = null, CancellationToken? token = null)
+        {
+            return _sqlConnection.UpdateAsync(entityToUpdate, transaction, commandTimeout ?? _commandTimeout, token);
+        }
+
+        public Task<int> DeleteAsync<T>(T entityToDelete, IDbTransaction transaction = null, int? commandTimeout = null)
+        {
+            return _sqlConnection.DeleteAsync(entityToDelete, transaction, commandTimeout ?? _commandTimeout);
+        }
+
+        public Task<int> DeleteAsync<T>(object id, IDbTransaction transaction = null, int? commandTimeout = null)
+        {
+            return _sqlConnection.DeleteAsync<T>(id, transaction, commandTimeout ?? _commandTimeout);
+        }
+
+        public Task<int> DeleteListAsync<T>(object whereConditions, IDbTransaction transaction = null, int? commandTimeout = null)
+        {
+            return _sqlConnection.DeleteListAsync<T>(whereConditions, transaction, commandTimeout ?? _commandTimeout);
+        }
+
+        public Task<int> DeleteListAsync<T>(string conditions, IDbTransaction transaction = null, int? commandTimeout = null)
+        {
+            return _sqlConnection.DeleteListAsync<T>(conditions, transaction, commandTimeout ?? _commandTimeout);
+        }
+
+        public Task<int> RecordCountAsync<T>(string conditions = "", IDbTransaction transaction = null, int? commandTimeout = null)
+        {
+            return _sqlConnection.RecordCountAsync<T>(conditions, transaction, commandTimeout ?? _commandTimeout);
+        }
+
+        public Task<int> RecordCountAsync<T>(object whereConditions, IDbTransaction transaction = null, int? commandTimeout = null)
+        {
+            return _sqlConnection.RecordCountAsync<T>(whereConditions, transaction, commandTimeout ?? _commandTimeout);
+        }
+
+        #endregion
 
         #region Implementation of IDisposable
 
