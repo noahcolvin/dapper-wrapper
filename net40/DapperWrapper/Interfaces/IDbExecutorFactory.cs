@@ -1,6 +1,8 @@
-﻿namespace DapperWrapper.Interfaces
+﻿using System;
+
+namespace DapperWrapper.Interfaces
 {
-    public interface IDbExecutorFactory
+    public interface IDbExecutorFactory : IDisposable
     {
         IDbExecutor CreateExecutor();
     }

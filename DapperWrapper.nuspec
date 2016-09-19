@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>Dapper.ExtraAnnotations</id>
-    <version>1.1.0</version>
+    <version>1.1.1</version>
     <authors>Noah Colvin</authors>
     <owners>Noah Colvin</owners>
     <licenseUrl>https://github.com/noahcolvin/dapper-wrapper/blob/master/LICENSE.txt</licenseUrl>

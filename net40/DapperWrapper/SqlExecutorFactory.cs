@@ -41,5 +41,9 @@ namespace DapperWrapper
 
             return new SqlExecutor(dbConnection, _commandTimeout);
         }
+
+        public void Dispose()
+        {
+        }
     }
 }
