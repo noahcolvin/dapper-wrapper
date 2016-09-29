@@ -53,6 +53,12 @@ Sometimes there is a need to assert whether a method-under-unit-test completes a
 There are also times when the data coming from the database is not trimmed and so DapperWrapper includes `QueryAndTrimResults<T>` for this purpose.
 
 ## Versions
+### 1.1.2
+Updated for [Dapper.SimpleCRUD](https://github.com/ericdc1/Dapper.SimpleCRUD) 1.13.0.
+
+### 1.1.1
+Added `IDisposable`.
+
 ### 1.1.0
 Added wrapper methods for [Dapper.SimpleCRUD](https://github.com/ericdc1/Dapper.SimpleCRUD) to enhance testability and to use the same pattern as other `Dapper` methods. If you do not need `Dapper.SimpleCRUD` support you can stick with version 1.0.1; that code has not been modified.
 

@@ -252,10 +252,9 @@ namespace DapperWrapper
         {
             return _sqlConnection.GetList<T>(whereConditions, transaction, commandTimeout ?? _commandTimeout);
         }
-
-        public IEnumerable<T> GetList<T>(string conditions, IDbTransaction transaction = null, int? commandTimeout = null)
+        public IEnumerable<T> GetList<T>(string conditions, object parameters = null, IDbTransaction transaction = null, int? commandTimeout = null)
         {
-            return _sqlConnection.GetList<T>(conditions, transaction, commandTimeout ?? _commandTimeout);
+            return _sqlConnection.GetList<T>(conditions, parameters, transaction, commandTimeout ?? _commandTimeout);
         }
 
         public IEnumerable<T> GetList<T>()
@@ -263,9 +262,9 @@ namespace DapperWrapper
             return _sqlConnection.GetList<T>();
         }
 
-        public IEnumerable<T> GetListPaged<T>(int pageNumber, int rowsPerPage, string conditions, string @orderby, IDbTransaction transaction = null, int? commandTimeout = null)
+        public IEnumerable<T> GetListPaged<T>(int pageNumber, int rowsPerPage, string conditions, string orderby, object parameters = null, IDbTransaction transaction = null, int? commandTimeout = null)
         {
-            return _sqlConnection.GetListPaged<T>(pageNumber, rowsPerPage, conditions, @orderby, transaction, commandTimeout ?? _commandTimeout);
+            return _sqlConnection.GetListPaged<T>(pageNumber, rowsPerPage, conditions, orderby, parameters, transaction, commandTimeout ?? _commandTimeout);
         }
 
         public int? Insert(object entityToInsert, IDbTransaction transaction = null, int? commandTimeout = null)
@@ -297,15 +296,13 @@ namespace DapperWrapper
         {
             return _sqlConnection.DeleteList<T>(whereConditions, transaction, commandTimeout ?? _commandTimeout);
         }
-
-        public int DeleteList<T>(string conditions, IDbTransaction transaction = null, int? commandTimeout = null)
+        public int DeleteList<T>(string conditions, object parameters = null, IDbTransaction transaction = null, int? commandTimeout = null)
         {
-            return _sqlConnection.DeleteList<T>(conditions, transaction, commandTimeout ?? _commandTimeout);
+            return _sqlConnection.DeleteList<T>(conditions, parameters, transaction, commandTimeout ?? _commandTimeout);
         }
-
-        public int RecordCount<T>(string conditions = "", IDbTransaction transaction = null, int? commandTimeout = null)
+        public int RecordCount<T>(string conditions = "", object parameters = null, IDbTransaction transaction = null, int? commandTimeout = null)
         {
-            return _sqlConnection.RecordCount<T>(conditions, transaction, commandTimeout ?? _commandTimeout);
+            return _sqlConnection.RecordCount<T>(conditions, parameters, transaction, commandTimeout ?? _commandTimeout);
         }
 
         public int RecordCount<T>(object whereConditions, IDbTransaction transaction = null, int? commandTimeout = null)
@@ -328,19 +325,18 @@ namespace DapperWrapper
             return _sqlConnection.GetListAsync<T>(whereConditions, transaction, commandTimeout ?? _commandTimeout);
         }
 
-        public Task<IEnumerable<T>> GetListAsync<T>(string conditions, IDbTransaction transaction = null, int? commandTimeout = null)
+        public Task<IEnumerable<T>> GetListAsync<T>(string conditions, object parameters = null, IDbTransaction transaction = null, int? commandTimeout = null)
         {
-            return _sqlConnection.GetListAsync<T>(conditions, transaction, commandTimeout ?? _commandTimeout);
+            return _sqlConnection.GetListAsync<T>(conditions, parameters, transaction, commandTimeout ?? _commandTimeout);
         }
 
         public Task<IEnumerable<T>> GetListAsync<T>()
         {
             return _sqlConnection.GetListAsync<T>();
         }
-
-        public Task<IEnumerable<T>> GetListPagedAsync<T>(int pageNumber, int rowsPerPage, string conditions, string @orderby)
+        public Task<IEnumerable<T>> GetListPagedAsync<T>(int pageNumber, int rowsPerPage, string conditions, string @orderby, object parameters = null, IDbTransaction transaction = null, int? commandTimeout = null)
         {
-            return _sqlConnection.GetListPagedAsync<T>(pageNumber, rowsPerPage, conditions, @orderby);
+            return _sqlConnection.GetListPagedAsync<T>(pageNumber, rowsPerPage, conditions, @orderby, parameters, transaction, commandTimeout);
         }
 
         public Task<int?> InsertAsync(object entityToInsert, IDbTransaction transaction = null, int? commandTimeout = null)
@@ -373,14 +369,14 @@ namespace DapperWrapper
             return _sqlConnection.DeleteListAsync<T>(whereConditions, transaction, commandTimeout ?? _commandTimeout);
         }
 
-        public Task<int> DeleteListAsync<T>(string conditions, IDbTransaction transaction = null, int? commandTimeout = null)
+        public Task<int> DeleteListAsync<T>(string conditions, object parameters = null, IDbTransaction transaction = null, int? commandTimeout = null)
         {
-            return _sqlConnection.DeleteListAsync<T>(conditions, transaction, commandTimeout ?? _commandTimeout);
+            return _sqlConnection.DeleteListAsync<T>(conditions, parameters, transaction, commandTimeout ?? _commandTimeout);
         }
 
-        public Task<int> RecordCountAsync<T>(string conditions = "", IDbTransaction transaction = null, int? commandTimeout = null)
+        public Task<int> RecordCountAsync<T>(string conditions = "", object parameters = null, IDbTransaction transaction = null, int? commandTimeout = null)
         {
-            return _sqlConnection.RecordCountAsync<T>(conditions, transaction, commandTimeout ?? _commandTimeout);
+            return _sqlConnection.RecordCountAsync<T>(conditions, parameters, transaction, commandTimeout ?? _commandTimeout);
         }
 
         public Task<int> RecordCountAsync<T>(object whereConditions, IDbTransaction transaction = null, int? commandTimeout = null)

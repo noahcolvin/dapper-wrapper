@@ -195,16 +195,18 @@ namespace DapperWrapper.Interfaces
         /// <summary>
         /// <para>By default queries the table matching the class name</para>
         /// <para>-Table name can be overridden by adding an attribute on your class [Table("YourTableName")]</para>
-        /// <para>conditions is an SQL where clause and/or order by clause ex: "where name='bob'"</para>
+        /// <para>conditions is an SQL where clause and/or order by clause ex: "where name='bob'" or "where age>=@Age"</para>
+        /// <para>parameters is an anonymous type to pass in named parameter values: new { Age = 15 }</para>
         /// <para>Supports transaction and command timeout</para>
         /// <para>Returns a list of entities that match where conditions</para>
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="conditions"></param>
+        /// <param name="parameters"></param>
         /// <param name="transaction"></param>
         /// <param name="commandTimeout"></param>
         /// <returns>Gets a list of entities with optional SQL where conditions</returns>
-        IEnumerable<T> GetList<T>(string conditions, IDbTransaction transaction = null, int? commandTimeout = null);
+        IEnumerable<T> GetList<T>(string conditions, object parameters = null, IDbTransaction transaction = null, int? commandTimeout = null);
 
         /// <summary>
         /// <para>By default queries the table matching the class name</para>
@@ -218,8 +220,9 @@ namespace DapperWrapper.Interfaces
         /// <summary>
         /// <para>By default queries the table matching the class name</para>
         /// <para>-Table name can be overridden by adding an attribute on your class [Table("YourTableName")]</para>
-        /// <para>conditions is an SQL where clause ex: "where name='bob'" - not required </para>
+        /// <para>conditions is an SQL where clause ex: "where name='bob'" or "where age>=@Age" - not required </para>
         /// <para>orderby is a column or list of columns to order by ex: "lastname, age desc" - not required - default is by primary key</para>
+        /// <para>parameters is an anonymous type to pass in named parameter values: new { Age = 15 }</para>
         /// <para>Supports transaction and command timeout</para>
         /// <para>Returns a list of entities that match where conditions</para>
         /// </summary>
@@ -228,10 +231,11 @@ namespace DapperWrapper.Interfaces
         /// <param name="rowsPerPage"></param>
         /// <param name="conditions"></param>
         /// <param name="orderby"></param>
+        /// <param name="parameters"></param>
         /// <param name="transaction"></param>
         /// <param name="commandTimeout"></param>
         /// <returns>Gets a paged list of entities with optional exact match where conditions</returns>
-        IEnumerable<T> GetListPaged<T>(int pageNumber, int rowsPerPage, string conditions, string orderby, IDbTransaction transaction = null, int? commandTimeout = null);
+        IEnumerable<T> GetListPaged<T>(int pageNumber, int rowsPerPage, string conditions, string orderby, object parameters = null, IDbTransaction transaction = null, int? commandTimeout = null);
 
         /// <summary>
         /// <para>Inserts a row into the database</para>
@@ -328,31 +332,33 @@ namespace DapperWrapper.Interfaces
         /// <para>By default deletes records in the table matching the class name</para>
         /// <para>-Table name can be overridden by adding an attribute on your class [Table("YourTableName")]</para>
         /// <para>Deletes records where that match the where clause</para>
-        /// <para>conditions is an SQL where clause ex: "where name='bob'"</para>
-
-        /// <para>The number of records effected</para>
+        /// <para>conditions is an SQL where clause ex: "where name='bob'" or "where age>=@Age"</para>
+        /// <para>parameters is an anonymous type to pass in named parameter values: new { Age = 15 }</para>
         /// <para>Supports transaction and command timeout</para>
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="conditions"></param>
+        /// <param name="parameters"></param>
         /// <param name="transaction"></param>
         /// <param name="commandTimeout"></param>
         /// <returns>The number of records effected</returns>
-        int DeleteList<T>(string conditions, IDbTransaction transaction = null, int? commandTimeout = null);
+        int DeleteList<T>(string conditions, object parameters = null, IDbTransaction transaction = null, int? commandTimeout = null);
 
         /// <summary>
         /// <para>By default queries the table matching the class name</para>
         /// <para>-Table name can be overridden by adding an attribute on your class [Table("YourTableName")]</para>
         /// <para>Returns a number of records entity by a single id from table T</para>
         /// <para>Supports transaction and command timeout</para>
-        /// <para>conditions is an SQL where clause ex: "where name='bob'" - not required </para>
+        /// <para>conditions is an SQL where clause ex: "where name='bob'" or "where age>=@Age" - not required </para>
+        /// <para>parameters is an anonymous type to pass in named parameter values: new { Age = 15 }</para>
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="conditions"></param>
+        /// <param name="parameters"></param>
         /// <param name="transaction"></param>
         /// <param name="commandTimeout"></param>
         /// <returns>Returns a count of records.</returns>
-        int RecordCount<T>(string conditions = "", IDbTransaction transaction = null, int? commandTimeout = null);
+        int RecordCount<T>(string conditions = "", object parameters = null, IDbTransaction transaction = null, int? commandTimeout = null);
 
         /// <summary>
         /// <para>By default queries the table matching the class name</para>
@@ -407,16 +413,18 @@ namespace DapperWrapper.Interfaces
         /// <summary>
         /// <para>By default queries the table matching the class name</para>
         /// <para>-Table name can be overridden by adding an attribute on your class [Table("YourTableName")]</para>
-        /// <para>conditions is an SQL where clause and/or order by clause ex: "where name='bob'"</para>
+        /// <para>conditions is an SQL where clause and/or order by clause ex: "where name='bob'" or "where age>=@Age"</para>
+        /// <para>parameters is an anonymous type to pass in named parameter values: new { Age = 15 }</para>
         /// <para>Supports transaction and command timeout</para>
         /// <para>Returns a list of entities that match where conditions</para>
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="conditions"></param>
+        /// <param name="parameters"></param>
         /// <param name="transaction"></param>
         /// <param name="commandTimeout"></param>
         /// <returns>Gets a list of entities with optional SQL where conditions</returns>
-        Task<IEnumerable<T>> GetListAsync<T>(string conditions, IDbTransaction transaction = null, int? commandTimeout = null);
+        Task<IEnumerable<T>> GetListAsync<T>(string conditions, object parameters = null, IDbTransaction transaction = null, int? commandTimeout = null);
 
         /// <summary>
         /// <para>By default queries the table matching the class name asynchronously</para>
@@ -430,8 +438,9 @@ namespace DapperWrapper.Interfaces
         /// <summary>
         /// <para>By default queries the table matching the class name</para>
         /// <para>-Table name can be overridden by adding an attribute on your class [Table("YourTableName")]</para>
-        /// <para>conditions is an SQL where clause ex: "where name='bob'" - not required </para>
+        /// <para>conditions is an SQL where clause ex: "where name='bob'" or "where age>=@Age" - not required </para>
         /// <para>orderby is a column or list of columns to order by ex: "lastname, age desc" - not required - default is by primary key</para>
+        /// <para>parameters is an anonymous type to pass in named parameter values: new { Age = 15 }</para>
         /// <para>Returns a list of entities that match where conditions</para>
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -439,8 +448,11 @@ namespace DapperWrapper.Interfaces
         /// <param name="rowsPerPage"></param>
         /// <param name="conditions"></param>
         /// <param name="orderby"></param>
+        /// <param name="parameters"></param>
+        /// <param name="transaction"></param>
+        /// <param name="commandTimeout"></param>
         /// <returns>Gets a list of entities with optional exact match where conditions</returns>
-        Task<IEnumerable<T>> GetListPagedAsync<T>(int pageNumber, int rowsPerPage, string conditions, string orderby);
+        Task<IEnumerable<T>> GetListPagedAsync<T>(int pageNumber, int rowsPerPage, string conditions, string orderby, object parameters = null, IDbTransaction transaction = null, int? commandTimeout = null);
 
         /// <summary>
         /// <para>Inserts a row into the database asynchronously</para>
@@ -481,10 +493,10 @@ namespace DapperWrapper.Interfaces
         ///  <para>Supports transaction and command timeout</para>
         ///  <para>Returns number of rows effected</para>
         ///  </summary>
-        ///  <param name="connection"></param>
         ///  <param name="entityToUpdate"></param>
         /// <param name="transaction"></param>
         /// <param name="commandTimeout"></param>
+        /// <param name="token"></param>
         /// <returns>The number of effected records</returns>
         Task<int> UpdateAsync(object entityToUpdate, IDbTransaction transaction = null, int? commandTimeout = null, System.Threading.CancellationToken? token = null);
 
@@ -538,30 +550,31 @@ namespace DapperWrapper.Interfaces
         /// <para>By default deletes records in the table matching the class name</para>
         /// <para>-Table name can be overridden by adding an attribute on your class [Table("YourTableName")]</para>
         /// <para>Deletes records where that match the where clause</para>
-        /// <para>conditions is an SQL where clause ex: "where name='bob'"</para>
-
-        /// <para>The number of records effected</para>
-        /// <para>Supports transaction and command timeout</para>
+        /// <para>conditions is an SQL where clause ex: "where name='bob'" or "where age>=@Age"</para>
+        /// <para>parameters is an anonymous type to pass in named parameter values: new { Age = 15 }</para>
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="conditions"></param>
+        /// <param name="parameters"></param>
         /// <param name="transaction"></param>
         /// <param name="commandTimeout"></param>
         /// <returns>The number of records effected</returns>
-        Task<int> DeleteListAsync<T>(string conditions, IDbTransaction transaction = null, int? commandTimeout = null);
+        Task<int> DeleteListAsync<T>(string conditions, object parameters = null, IDbTransaction transaction = null, int? commandTimeout = null);
 
         /// <summary>
         /// <para>By default queries the table matching the class name</para>
         /// <para>-Table name can be overridden by adding an attribute on your class [Table("YourTableName")]</para>
+        /// <para>conditions is an SQL where clause ex: "where name='bob'" or "where age>=@Age" - not required </para>
+        /// <para>parameters is an anonymous type to pass in named parameter values: new { Age = 15 }</para>   
         /// <para>Supports transaction and command timeout</para>
-        /// <para>conditions is an SQL where clause ex: "where name='bob'" - not required </para>
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="conditions"></param>
+        /// <param name="parameters"></param>
         /// <param name="transaction"></param>
         /// <param name="commandTimeout"></param>
         /// <returns>Returns a count of records.</returns>
-        Task<int> RecordCountAsync<T>(string conditions = "", IDbTransaction transaction = null, int? commandTimeout = null);
+        Task<int> RecordCountAsync<T>(string conditions = "", object parameters = null, IDbTransaction transaction = null, int? commandTimeout = null);
 
         /// <summary>
         /// <para>By default queries the table matching the class name</para>
