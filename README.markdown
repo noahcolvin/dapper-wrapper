@@ -52,6 +52,8 @@ Sometimes there is a need to assert whether a method-under-unit-test completes a
 ## Additional
 There are also times when the data coming from the database is not trimmed and so DapperWrapper includes `QueryAndTrimResults<T>` for this purpose.
 
+Added `Proc` methods to assume `CommandType.StoredProcedure` and defaulting the `CommandTimeout` in the `SqlExecutor` constructor.
+
 ## Versions
 ### 1.1.2
 Updated for [Dapper.SimpleCRUD](https://github.com/ericdc1/Dapper.SimpleCRUD) 1.13.0.
